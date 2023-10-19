@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Contact;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\NewContact;
 
 class ContactController extends Controller
 {
@@ -23,6 +25,9 @@ class ContactController extends Controller
         $newContact->message = $data["message"];
 
         $newContact->save();
+
+        // Email di conferma all'utente che ha compilato il form
+        Mail::to($data['email'])->send(new NewContact($data));
 
         return response()->json([
             'message' => "Thank you {$data['name']} for your message. We will be in touch soon."
