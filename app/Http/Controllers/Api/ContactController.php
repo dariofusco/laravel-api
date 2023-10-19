@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Contact;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\NewContact;
+use App\Mail\NewContactReceived;
 
 class ContactController extends Controller
 {
@@ -28,6 +29,9 @@ class ContactController extends Controller
 
         // Email di conferma all'utente che ha compilato il form
         Mail::to($data['email'])->send(new NewContact($data));
+
+        // mi invio una mail per notificare un nuovo contatto
+        Mail::to('dario.fusco@boolean.it')->send(new NewContactReceived($data));
 
         return response()->json([
             'message' => "Thank you {$data['name']} for your message. We will be in touch soon."

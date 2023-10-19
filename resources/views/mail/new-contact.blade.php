@@ -1,12 +1,7 @@
 <x-mail::message>
-# Introduction
 
-The body of your message.
+    # Ciao, {{ $formData['name'] }}
 
-<x-mail::button :url="''">
-Button Text
-</x-mail::button>
+    verrai contattato presto.
 
-Thanks,<br>
-{{ config('app.name') }}
 </x-mail::message>
